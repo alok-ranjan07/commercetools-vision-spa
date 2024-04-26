@@ -60,10 +60,10 @@ type AssetDimensions{
 type AttributeDefinition{
     type: AttributeDefinitionType!
     name: String!
-    label(locale: LocaleacceptLanguage: [Locale!]): String
+    label(locale: Locale, acceptLanguage: [Locale!]): String
     isRequired: Boolean!
     attributeConstraint: AttributeConstraint!
-    inputTip(locale: LocaleacceptLanguage: [Locale!]): String
+    inputTip(locale: Locale, acceptLanguage: [Locale!]): String
     inputHint: TextInputHint!
     isSearchable: Boolean!
     labelAllLocales: [LocalizedString!]!
@@ -88,9 +88,9 @@ type Asset{
     id: String!
     key: String
     sources: [AssetSource!]!
-    name(locale: LocaleacceptLanguage: [Locale!]): String
+    name(locale: Locale, acceptLanguage: [Locale!]): String
     nameAllLocales: [LocalizedString!]!
-    description(locale: LocaleacceptLanguage: [Locale!]): String
+    description(locale: Locale, acceptLanguage: [Locale!]): String
     descriptionAllLocales: [LocalizedString!]
     tags: [String!]!
     custom: CustomFieldsType
@@ -110,6 +110,12 @@ type SearchKeywords{
     searchKeywords: [SearchKeyword!]!
 }
 
+
+type Dimensions{
+    width: Int!
+    height: Int!
+}
+
 type Image{
     url: String!
     dimensions: Dimensions!
@@ -123,5 +129,20 @@ type ReviewRatingStatistics{
     count: Long!
     ratingsDistribution: Json!
 }
+
+type ProductVariantSelection{
+    type: String!
+    skus: [String!]!
+}
+
+type ProductVariantExclusion{
+    skus: [String!]!
+}
+
+type ResponseTypeId{
+    id: String!
+    type: String!
+}
+
 `;
 export default types;

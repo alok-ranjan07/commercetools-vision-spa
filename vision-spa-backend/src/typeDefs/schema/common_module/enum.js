@@ -18,7 +18,6 @@ enum TextInputHint{
 enum ChannelRole{
     InventorySupply
     ProductDistribution
-    ProductDistribution
     OrderImport
     Primary
 }

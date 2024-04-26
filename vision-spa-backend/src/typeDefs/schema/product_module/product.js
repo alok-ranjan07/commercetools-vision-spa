@@ -1,17 +1,11 @@
 const product = `
 
-type ProductTypeDefinition implements Versioned, ReferenceExpandable{
+type ProductTypeDefinition implements Versioned & ReferenceExpandable{
+    id: String!
     key: String
     name: String!
     description: String!
-    attributeDefinitions(
-    includeNames: [String!]
-    excludeNames: [String!]
-    limit: Int
-    offset: Int
-    sort: [String!]
-    ): AttributeDefinitionResult!
-    id: String!
+    attributeDefinitions(includeNames: [String!], excludeNames: [String!], limit: Int, offset: Int, sort: [String!]): AttributeDefinitionResult!
     version: Long!
     createdAt: DateTime!
     lastModifiedAt: DateTime!
@@ -25,11 +19,11 @@ type CategoryOrderHint{
 }
 
 type ProductData{
-    name(locale: LocaleacceptLanguage: [Locale!]): String
-    description(locale: LocaleacceptLanguage: [Locale!]): String
+    name(locale: Locale, acceptLanguage: [Locale!]): String
+    description(locale: Locale, acceptLanguage: [Locale!]): String
     nameAllLocales: [LocalizedString!]!
     descriptionAllLocales: [LocalizedString!]
-    slug(locale: LocaleacceptLanguage: [Locale!]): String
+    slug(locale: Locale, acceptLanguage: [Locale!]): String
     slugAllLocales: [LocalizedString!]!
     categoryOrderHint(categoryId: String!): String
     categoryOrderHints: [CategoryOrderHint!]!
@@ -37,26 +31,16 @@ type ProductData{
     categories: [Category!]!
     searchKeyword(locale: Locale!): [SearchKeyword!]
     searchKeywords: [SearchKeywords!]!
-    metaTitle(locale: LocaleacceptLanguage: [Locale!]): String
+    metaTitle(locale: Locale, acceptLanguage: [Locale!]): String
     metaTitleAllLocales: [LocalizedString!]
-    metaKeywords(locale: LocaleacceptLanguage: [Locale!]): String
+    metaKeywords(locale: Locale, acceptLanguage: [Locale!]): String
     metaKeywordsAllLocales: [LocalizedString!]
-    metaDescription(locale: LocaleacceptLanguage: [Locale!]): String
+    metaDescription(locale: Locale, acceptLanguage: [Locale!]): String
     metaDescriptionAllLocales: [LocalizedString!]
     masterVariant: ProductVariant!
-    variants(
-    skus: [String!]
-    isOnStock: Boolean
-    stockChannelIds: [String!]
-    hasImages: Boolean
-    ): [ProductVariant!]!
-    allVariants(
-    skus: [String!]
-    isOnStock: Boolean
-    stockChannelIds: [String!]
-    hasImages: Boolean
-    ): [ProductVariant!]!
-    variant(sku: Stringkey: String): ProductVariant
+    variants(skus: [String!], isOnStock: Boolean, stockChannelIds: [String!], hasImages: Boolean): [ProductVariant!]!
+    allVariants(skus: [String!], isOnStock: Boolean, stockChannelIds: [String!], hasImages: Boolean): [ProductVariant!]!
+    variant(sku: String, key: String): ProductVariant
     skus: [String!]!
 }
 
@@ -65,15 +49,6 @@ type ProductCatalogData{
     staged: ProductData
     published: Boolean!
     hasStagedChanges: Boolean!
-}
-
-type ProductVariantSelection{
-    type: String!
-    skus: [String!]!
-}
-
-type ProductVariantExclusion{
-    skus: [String!]!
 }
 
 type SelectionOfProduct{
@@ -93,7 +68,7 @@ type SelectionOfProductQueryResult{
     results: [SelectionOfProduct!]!
 }
 
-type Product implements Versioned, ReviewTarget, ReferenceExpandable{
+type Product implements Versioned & ReviewTarget & ReferenceExpandable{
     id: String!
     key: String
     version: Long!
@@ -109,12 +84,7 @@ type Product implements Versioned, ReviewTarget, ReferenceExpandable{
     taxCategoryRef: Reference
     taxCategory: TaxCategory
     reviewRatingStatistics: ReviewRatingStatistics
-    productSelectionRefs(
-    where: String
-    sort: [String!]
-    limit: Int
-    offset: Int
-    ): SelectionOfProductQueryResult!
+    productSelectionRefs(where: String, sort: [String!], limit: Int, offset: Int): SelectionOfProductQueryResult!
     createdBy: Initiator
     lastModifiedBy: Initiator
 }

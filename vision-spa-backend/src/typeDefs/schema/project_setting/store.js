@@ -9,11 +9,11 @@ type ProductSelectionSetting{
     active: Boolean!
 }
 
-type Store implements Versioned, ReferenceExpandable{
+type Store implements Versioned & ReferenceExpandable{
     id: String!
     version: Long!
     key: String!
-    name(locale: LocaleacceptLanguage: [Locale!]): String
+    name(locale: Locale, acceptLanguage: [Locale!]): String
     nameAllLocales: [LocalizedString!]
     languages: [Locale!]
     countries: [StoreCountry!]

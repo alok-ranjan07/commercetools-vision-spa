@@ -15,7 +15,7 @@ type TaxRate{
     subRates: [SubRate!]!
 }
 
-type TaxCategory implements Versioned, ReferenceExpandable{
+type TaxCategory implements Versioned & ReferenceExpandable{
     name: String!
     description: String
     rates: [TaxRate!]!

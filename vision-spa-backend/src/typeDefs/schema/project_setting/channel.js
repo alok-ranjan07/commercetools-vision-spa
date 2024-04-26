@@ -1,13 +1,13 @@
 const channel = `
 
-type Channel implements Versioned, ReviewTarget, ReferenceExpandable{
+type Channel implements Versioned & ReviewTarget & ReferenceExpandable{
     id: String!
     version: Long!
     key: String!
     roles: [ChannelRole!]!
-    name(locale: LocaleacceptLanguage: [Locale!]): String
+    name(locale: Locale, acceptLanguage: [Locale!]): String
     nameAllLocales: [LocalizedString!]
-    description(locale: LocaleacceptLanguage: [Locale!]): String
+    description(locale: Locale, acceptLanguage: [Locale!]): String
     descriptionAllLocales: [LocalizedString!]
     address: Address
     geoLocation: Geometry

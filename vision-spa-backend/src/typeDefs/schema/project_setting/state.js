@@ -1,14 +1,14 @@
 const state = `
 
-type State implements Versioned, ReferenceExpandable{
+type State implements Versioned & ReferenceExpandable{
     id: String!
     version: Long!
     key: String
     type: StateType!
     roles: [StateRole!]!
-    name(locale: LocaleacceptLanguage: [Locale!]): String
+    name(locale: Locale, acceptLanguage: [Locale!]): String
     nameAllLocales: [LocalizedString!]
-    description(locale: LocaleacceptLanguage: [Locale!]): String
+    description(locale: Locale, acceptLanguage: [Locale!]): String
     descriptionAllLocales: [LocalizedString!]
     builtIn: Boolean!
     transitionsRef: [Reference!]

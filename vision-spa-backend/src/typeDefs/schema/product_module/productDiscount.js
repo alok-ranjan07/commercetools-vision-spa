@@ -4,7 +4,7 @@ type ProductDiscountValue{
     type: String!
 }
 
-type ProductDiscount implements Versioned, ReferenceExpandable{
+type ProductDiscount implements Versioned & ReferenceExpandable{
     predicate: String!
     validFrom: DateTime
     validUntil: DateTime
@@ -12,8 +12,8 @@ type ProductDiscount implements Versioned, ReferenceExpandable{
     isValid: Boolean!
     sortOrder: String!
     key: String
-    name(locale: LocaleacceptLanguage: [Locale!]): String
-    description(locale: LocaleacceptLanguage: [Locale!]): String
+    name(locale: Locale, acceptLanguage: [Locale!]): String
+    description(locale: Locale, acceptLanguage: [Locale!]): String
     referenceRefs: [Reference!]!
     nameAllLocales: [LocalizedString!]!
     descriptionAllLocales: [LocalizedString!]

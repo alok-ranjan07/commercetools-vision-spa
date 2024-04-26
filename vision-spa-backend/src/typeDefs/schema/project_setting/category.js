@@ -1,14 +1,14 @@
 const category = `
 
-type Category implements Versioned, ReferenceExpandable{
+type Category implements Versioned & ReferenceExpandable{
     id: String!
     key: String
     version: Long!
-    name(locale: LocaleacceptLanguage: [Locale!]): String
+    name(locale: Locale, acceptLanguage: [Locale!]): String
     nameAllLocales: [LocalizedString!]!
-    description(locale: LocaleacceptLanguage: [Locale!]): String
+    description(locale: Locale, acceptLanguage: [Locale!]): String
     descriptionAllLocales: [LocalizedString!]
-    slug(locale: LocaleacceptLanguage: [Locale!]): String
+    slug(locale: Locale, acceptLanguage: [Locale!]): String
     slugAllLocales: [LocalizedString!]!
     ancestorsRef: [Reference!]!
     ancestors: [Category!]!
@@ -16,11 +16,11 @@ type Category implements Versioned, ReferenceExpandable{
     parent: Category
     orderHint: String!
     externalId: String
-    metaTitle(locale: LocaleacceptLanguage: [Locale!]): String
+    metaTitle(locale: Locale, acceptLanguage: [Locale!]): String
     metaTitleAllLocales: [LocalizedString!]
-    metaKeywords(locale: LocaleacceptLanguage: [Locale!]): String
+    metaKeywords(locale: Locale, acceptLanguage: [Locale!]): String
     metaKeywordsAllLocales: [LocalizedString!]
-    metaDescription(locale: LocaleacceptLanguage: [Locale!]): String
+    metaDescription(locale: Locale, acceptLanguage: [Locale!]): String
     metaDescriptionAllLocales: [LocalizedString!]
     stagedProductCount: Int!
     childCount: Int!

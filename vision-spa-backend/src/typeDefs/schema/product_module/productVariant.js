@@ -56,12 +56,7 @@ type ProductVariantAvailabilitiesResult{
 
 type ProductVariantAvailabilityWithChannels{
     noChannel: ProductVariantAvailability
-    channels(
-    includeChannelIds: [String!]
-    excludeChannelIds: [String!]
-    limit: Int
-    offset: Int
-    ): ProductVariantAvailabilitiesResult!
+    channels(includeChannelIds: [String!], excludeChannelIds: [String!], limit: Int, offset: Int): ProductVariantAvailabilitiesResult!
 }
 
 type RawProductAttribute{
@@ -77,17 +72,11 @@ type ProductVariant{
     key: String
     sku: String
     prices: [ProductPrice!]
-    price(
-    currency: Currency!
-    country: Country
-    customerGroupId: String
-    channelId: String
-    date: DateTime
-    ): ProductPrice
+    price(currency: Currency!, country: Country, customerGroupId: String, channelId: String, date: DateTime): ProductPrice
     images: [Image!]!
     assets: [Asset!]!
     availability: ProductVariantAvailabilityWithChannels
-    attributesRaw(includeNames: [String!]excludeNames: [String!]): [RawProductAttribute!]!
+    attributesRaw(includeNames: [String!], excludeNames: [String!]): [RawProductAttribute!]!
 }
 
 `;

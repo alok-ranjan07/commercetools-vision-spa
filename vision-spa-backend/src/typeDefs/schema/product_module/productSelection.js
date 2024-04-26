@@ -1,14 +1,5 @@
 const productSelection = `
 
-type ProductVariantSelection{
-    type: String!
-    skus: [String!]!
-}
-
-type ProductVariantExclusion{
-    skus: [String!]!
-}
-
 type ProductOfSelection{
     productRef: Reference!
     product: Product
@@ -26,14 +17,9 @@ type ProductOfSelectionQueryResult{
 
 type ProductSelection implements Versioned{
     key: String
-    name(locale: LocaleacceptLanguage: [Locale!]): String
+    name(locale: Locale, acceptLanguage: [Locale!]): String
     nameAllLocales: [LocalizedString!]!
-    productRefs(
-    where: String
-    sort: [String!]
-    limit: Int
-    offset: Int
-    ): ProductOfSelectionQueryResult!
+    productRefs(where: String, sort: [String!], limit: Int, offset: Int): ProductOfSelectionQueryResult!
     productCount: Int!
     custom: CustomFieldsType
     mode: ProductSelectionMode!

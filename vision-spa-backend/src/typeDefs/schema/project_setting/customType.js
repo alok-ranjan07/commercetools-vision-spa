@@ -3,19 +3,19 @@ type FieldDefinition{
     name: String!
     required: Boolean!
     inputHint: TextInputHint!
-    label(locale: LocaleacceptLanguage: [Locale!]): String
+    label(locale: Locale, acceptLanguage: [Locale!]): String
     labelAllLocales: [LocalizedString!]!
     type: FieldType!
 }
 
-type TypeDefinition implements Versioned, ReferenceExpandable{
+type TypeDefinition implements Versioned & ReferenceExpandable{
     key: String!
-    name(locale: LocaleacceptLanguage: [Locale!]): String
-    description(locale: LocaleacceptLanguage: [Locale!]): String
+    name(locale: Locale, acceptLanguage: [Locale!]): String
+    description(locale: Locale, acceptLanguage: [Locale!]): String
     nameAllLocales: [LocalizedString!]!
     descriptionAllLocales: [LocalizedString!]
     resourceTypeIds: [String!]!
-    fieldDefinitions(includeNames: [String!]excludeNames: [String!]): [FieldDefinition!]!
+    fieldDefinitions(includeNames: [String!], excludeNames: [String!]): [FieldDefinition!]!
     id: String!
     version: Long!
     createdAt: DateTime!
@@ -34,7 +34,7 @@ type RawCustomField{
 type CustomFieldsType{
     typeRef: Reference!
     type: TypeDefinition
-    customFieldsRaw(includeNames: [String!]excludeNames: [String!]): [RawCustomField!]
+    customFieldsRaw(includeNames: [String!], excludeNames: [String!]): [RawCustomField!]
 }`;
 
 export default customType;

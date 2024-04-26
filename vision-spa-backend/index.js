@@ -6,6 +6,11 @@ import http from "http";
 import cors from "cors";
 import "dotenv/config";
 
+// import { gql } from "apollo-server";
+// import fs from "fs";
+// const schemaSDL = fs.readFileSync("./schema.sdl", "utf8");
+// const typeDefs = gql(schema);
+
 import typeDefs from "./src/typeDefs/typeDefs.js";
 import resolvers from "./src/resolvers/resolvers.js";
 
