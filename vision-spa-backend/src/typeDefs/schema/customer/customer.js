@@ -1,5 +1,20 @@
 const customer = `
 
+type CustomerSignInResult{
+    customer: Customer!
+    cart: Cart
+}
+
+input CustomerSignInDraft{
+    email: String!
+    password: String!
+    anonymousCartId: String @deprecated(reason:"not available in the docs anymore")
+    anonymousCart: ResourceIdentifierInput
+    anonymousCartSignInMode: AnonymousCartSignInMode
+    anonymousId: String
+    updateProductData: Boolean
+}
+
 type CustomerGroup implements Versioned & ReferenceExpandable{
     id: String!
     version: Long!
@@ -15,6 +30,12 @@ type CustomerGroup implements Versioned & ReferenceExpandable{
 type CustomerGroupAssignment{
     customerGroupRef: Reference
     customerGroup: CustomerGroup
+}
+
+type CustomerGroupReference{
+    id: String!
+    typeId: String!
+    obj: CustomerGroup
 }
 
 "A customer is a person purchasing products. Carts, Orders and Reviews can be associated to a customer."
@@ -39,23 +60,23 @@ type Customer implements Versioned & ReferenceExpandable {
     defaultBillingAddressId: String
     billingAddressIds: [String!]!
     isEmailVerified: Boolean!
-    customerGroup: CustomerGroup
+    customerGroup: CustomerGroupReference
     locale: Locale
     salutation: String
-    stores: [Store!]!
-    createdAt: DateTime!
-    lastModifiedAt: DateTime!
-    createdBy: Initiator
-    lastModifiedBy: Initiator
-    defaultBillingAddress: Address
-    customerGroupRef: Reference
+    stores: [KeyReference!]!
     authenticationMode: AuthenticationMode
-    defaultShippingAddress: Address
-    shippingAddresses: [Address!]
-    billingAddresses: [Address!]
-    storesRef: [KeyReference!]
-    customerGroupAssignments: [CustomerGroupAssignment!]
     custom: CustomFieldsType
+    createdAt: DateTime!
+    createdBy: Initiator
+    lastModifiedAt: DateTime!
+    lastModifiedBy: Initiator
+    defaultBillingAddress: Address @deprecated(reason:"not available in docs")
+    customerGroupRef: Reference @deprecated(reason:"not available in docs")
+    defaultShippingAddress: Address @deprecated(reason:"not available in docs")
+    shippingAddresses: [Address!] @deprecated(reason:"not available in docs")
+    billingAddresses: [Address!] @deprecated(reason:"not available in docs")
+    storesRef: [KeyReference!] @deprecated(reason:"not available in docs")
+    customerGroupAssignments: [CustomerGroupAssignment!]
     
 }`;
 

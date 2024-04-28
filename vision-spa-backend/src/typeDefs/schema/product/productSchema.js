@@ -3,11 +3,11 @@ import productDiscount from "./productDiscount.js";
 import productSelection from "./productSelection.js";
 import productVariant from "./productVariant.js";
 
-const productIndex = `
+const productSchema = `
 ${productDiscount}
 ${productVariant}
 ${product}
 ${productSelection}
 `;
 
-export default productIndex;
+export default productSchema;

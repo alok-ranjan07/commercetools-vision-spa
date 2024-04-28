@@ -1,4 +1,7 @@
 const mutation = `
-type Mutation{}
+type Mutation{
+    customerSignIn(draft: CustomerSignInDraft!, storeKey: KeyReferenceInput): CustomerSignInResponse!
+
+}
 `;
 export default mutation;

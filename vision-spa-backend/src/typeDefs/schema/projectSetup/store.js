@@ -1,4 +1,10 @@
 const store = `
+
+type InheritedStore{
+    store: Store
+    storeRef: KeyReference!
+}
+
 type StoreCountry{
     code: Country!
 }

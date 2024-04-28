@@ -1,6 +1,6 @@
 import { encode } from "js-base64";
 import fetch from "node-fetch";
-import config from "./api.config.js";
+import config from "../config/api.config.js";
 
 const au = {
   authUrl: config.ct.auth.host,
@@ -11,6 +11,7 @@ const au = {
   guestId: config.ct.auth.guestCredentials.clientId,
   guestSecret: config.ct.auth.guestCredentials.clientSecret,
   guestScope: config.ct.auth.guestCredentials.guestScope,
+  storeurl: config.serviceURLs.store,
 };
 
 const createAuth = (au) => encode(`${au.id}:${au.secret}`);
@@ -20,7 +21,7 @@ const auth = createAuth(au);
 const guestAuth = createGuestAuth(au);
 const guestScope = encodeURI(au.guestScope);
 
-const getToken = async () => {
+const anonymousToken = async () => {
   const response = await fetch(
     `${au.authUrl}/oauth/${au.projectKey}/anonymous/token`,
     {
@@ -36,7 +37,7 @@ const getToken = async () => {
   return { access_token, scope };
 };
 
-const loginToken = async (email, password) => {
+const customerToken = async (email, password) => {
   const response = await fetch(
     `${au.authUrl}/oauth/${au.projectKey}/customers/token`,
     {
@@ -57,12 +58,37 @@ const loginToken = async (email, password) => {
   if (access_token) {
     return { access_token, scope };
   } else {
-    return getToken();
+    return anonymousToken();
+  }
+};
+
+const customerTokenInStore = async (email, password, storeKey) => {
+  const response = await fetch(
+    `${au.authUrl}/oauth/${au.projectKey}/${au.storeurl}/key=${storeKey}/customers/token`,
+    {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        authorization: `Basic ${auth}`,
+      },
+      body: new URLSearchParams({
+        username: email,
+        password: password,
+        grant_type: "password",
+        scope: au.scope,
+      }),
+      method: "POST",
+    }
+  );
+  const { access_token, scope } = await response.json();
+  if (access_token) {
+    return { access_token, scope };
+  } else {
+    return anonymousToken();
   }
 };
 
 export const fetchWithPassword = async (url, options, email, password) => {
-  const { access_token, scope } = await loginToken(email, password);
+  const { access_token, scope } = await customerToken(email, password);
   const id = scope
     .split(" ")
     .find(
@@ -77,11 +103,40 @@ export const fetchWithPassword = async (url, options, email, password) => {
       authorization: `Bearer ${access_token}`,
     },
   });
-  return { response: await response.json(), token: access_token, id: id };
+  return { body: await response.json(), token: access_token, id: id };
+};
+
+export const fetchWithPasswordInStore = async (
+  url,
+  options,
+  email,
+  password,
+  storeKey
+) => {
+  const { access_token, scope } = await customerTokenInStore(
+    email,
+    password,
+    storeKey
+  );
+  const id = scope
+    .split(" ")
+    .find(
+      (item) =>
+        item.startsWith("anonymous_id:") || item.startsWith("customer_id:")
+    )
+    .split(":");
+  const response = await fetch(url, {
+    ...options,
+    headers: {
+      ...options.headers,
+      authorization: `Bearer ${access_token}`,
+    },
+  });
+  return { body: await response.json(), token: access_token, id: id };
 };
 
 export const anonymousFetch = async (url, options) => {
-  const { access_token, scope } = await getToken();
+  const { access_token, scope } = await anonymousToken();
   const id = scope
     .split(" ")
     .find(
@@ -96,7 +151,7 @@ export const anonymousFetch = async (url, options) => {
       authorization: `Bearer ${access_token}`,
     },
   });
-  return { response: await response.json(), token: access_token, id: id };
+  return { body: await response.json(), token: access_token, id: id };
 };
 
 export const fetchWithToken = async (url, options, bearer_token) => {
@@ -107,6 +162,6 @@ export const fetchWithToken = async (url, options, bearer_token) => {
       authorization: `Bearer ${bearer_token}`,
     },
   });
-  return { response: await response.json(), token: bearer_token };
+  return { body: await response.json(), token: bearer_token };
 };
 export default fetchWithToken;

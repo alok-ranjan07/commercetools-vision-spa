@@ -10,9 +10,29 @@ type Initiator{
     associateRef: Reference
 }
 
+type Money {
+    type: String!
+    currencyCode: Currency!
+    centAmount: Long!
+    fractionDigits: Int!
+}
+
+type BaseMoney{
+    type: String!
+    currencyCode: Currency!
+    centAmount: Long!
+    fractionDigits: Int!
+}
+
 type Reference{
     typeId: String!
     id: String!
+}
+
+input ResourceIdentifierInput{
+    typeId: String
+    id: String
+    key: String
 }
 
 type Attribution{

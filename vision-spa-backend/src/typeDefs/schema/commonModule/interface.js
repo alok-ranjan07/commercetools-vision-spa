@@ -16,6 +16,7 @@ interface ReferenceExpandable{
 interface ReviewTarget{
     id: String!
 }
+
 `;
 
 export default queryInterface;

@@ -1,6 +1,7 @@
 const query = `
+
 type Query{
-    customerLogin(email: String!, password: String!): LoginResponse!
+    query:Int
 }
 `;
 export default query;

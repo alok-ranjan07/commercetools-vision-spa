@@ -12,6 +12,8 @@ scalar Long
 scalar Json
 
 scalar Date
+
+scalar KeyReferenceInput
 `;
 
 export default scalar;

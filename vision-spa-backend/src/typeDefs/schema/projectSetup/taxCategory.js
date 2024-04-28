@@ -1,4 +1,36 @@
 const taxCategory = `
+
+type TaxPortion{
+    rate: Float!
+    amount: Money!
+    name: String
+
+}
+
+type TaxedPrice{
+    totalNet: Money!
+    totalGross: Money!
+    taxPortions: [TaxPortion!]!
+    totalTax: Money
+}
+
+type TaxedItemPrice{
+    totalNet: Money!
+    totalGross: Money!
+    taxPortions: [TaxPortion!]!
+    totalTax: Money
+}
+
+type MethodTaxRate{
+    shippingMethodKey: String!
+    taxRate: TaxRate
+}
+
+type MethodTaxedPrice{
+    shippingMethodKey: String!
+    taxedPrice: TaxedItemPrice
+}
+
 type SubRate{
     name: String!
     amount: Float!

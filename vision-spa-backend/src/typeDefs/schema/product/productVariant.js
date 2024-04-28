@@ -1,12 +1,5 @@
 const productVariant = `
 
-type BaseMoney{
-    type: String!
-    currencyCode: Currency!
-    centAmount: Long!
-    fractionDigits: Int!
-}
-
 type DiscountedProductPriceValue{
     value: BaseMoney!
     discountRef: Reference!

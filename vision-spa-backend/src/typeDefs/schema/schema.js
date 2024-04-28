@@ -1,19 +1,16 @@
-import commonModule from "./common_module/common_module.js";
-import projectSetting from "./project_setting/project_setup.js";
-import productIndex from "./product_module/productIndex.js";
-import customer from "./customer_module/customer.js";
+import commonModuleSchema from "./commonModule/commonModuleSchema.js";
+import productSchema from "./product/productSchema.js";
+import projectSetupSchema from "./projectSetup/projectSetupSchema.js";
+import customer from "./customer/customer.js";
+import cartSchema from "./cart/cartSchema.js";
+import response from "./response.js";
 
 const schema = `
-${commonModule}
-${projectSetting}
-${productIndex}
+${commonModuleSchema}
+${projectSetupSchema}
+${productSchema}
 ${customer}
-
-type LoginResponse {
-id: ResponseTypeId
-customer: Customer
-accessToken: String
-error: String
-}
+${cartSchema}
+${response}
 `;
 export default schema;

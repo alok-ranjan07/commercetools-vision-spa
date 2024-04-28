@@ -20,6 +20,7 @@ export default {
     graphql: `${process.env.CTP_API_URL}/${process.env.CTP_PROJECT_KEY}/graphql`,
   },
   serviceURLs: {
-    customerLogin: process.env.LoginService,
+    login: process.env.Login,
+    store: process.env.Store,
   },
 };
