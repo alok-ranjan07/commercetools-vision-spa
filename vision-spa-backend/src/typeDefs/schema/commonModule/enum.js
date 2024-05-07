@@ -74,6 +74,11 @@ enum AssociateInheritanceMode{
     Enabled
 }
 
+enum AuthenticationMode{
+    ExternalAuth
+    Password
+}
+
 enum BusinessUnitStatus{
     Active
     Inactive

@@ -1,5 +1,19 @@
 const taxCategory = `
 
+input ExternalTaxRateDraft{
+    name: String!
+    amount: Float
+    includedInPrice: Boolean
+    country: Country
+    state: String
+    subRates: [SubRatesInput!]
+}
+
+input SubRatesInput{
+    name: String!
+    amount: Float!
+}
+
 type TaxPortion{
     rate: Float!
     amount: Money!

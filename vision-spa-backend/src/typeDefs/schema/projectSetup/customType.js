@@ -35,6 +35,18 @@ type CustomFieldsType{
     typeRef: Reference!
     type: TypeDefinition
     customFieldsRaw(includeNames: [String!], excludeNames: [String!]): [RawCustomField!]
-}`;
+}
+
+input CustomFieldInput{
+    name: String!
+    value: String!
+}
+
+input CustomFieldsDraft{
+    type: ResourceIdentifierInput
+    fields: [CustomFieldInput!]
+}
+
+`;
 
 export default customType;

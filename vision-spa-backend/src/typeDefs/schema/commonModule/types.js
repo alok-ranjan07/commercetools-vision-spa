@@ -17,6 +17,11 @@ type Money {
     fractionDigits: Int!
 }
 
+input MoneyInput{
+    currencyCode: Currency!
+    centAmount: Int!
+}
+
 type BaseMoney{
     type: String!
     currencyCode: Currency!
@@ -35,6 +40,16 @@ input ResourceIdentifierInput{
     key: String
 }
 
+type ResponseTypeId{
+    id: String!
+    type: String!
+}
+
+type KeyReference{
+    typeId: String!
+    key: String!
+}
+
 type Attribution{
     clientId: String
     source: AttributionSource!
@@ -48,11 +63,6 @@ type LocalizedString{
 
 type FieldType{
     name: String!
-}
-
-type KeyReference{
-    typeId: String!
-    key: String!
 }
 
 type Geometry{
@@ -157,11 +167,6 @@ type ProductVariantSelection{
 
 type ProductVariantExclusion{
     skus: [String!]!
-}
-
-type ResponseTypeId{
-    id: String!
-    type: String!
 }
 
 `;

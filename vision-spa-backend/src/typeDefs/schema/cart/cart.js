@@ -34,9 +34,9 @@ type ItemShippingDetails{
 
 
 type LineItem{
-    id: String!
     key: String
     productId: String!
+    id: String!
     productKey: String
     name(locale: Locale, acceptLanguage: [Locale!]): String
     nameAllLocales: [LocalizedString!]!
@@ -233,6 +233,94 @@ type Cart implements Versioned & ReferenceExpandable{
     lastModifiedAt: DateTime!
     createdBy: Initiator
     lastModifiedBy: Initiator
+}
+
+input ExternalLineItemTotalPrice{
+    price: MoneyInput
+    totalPrice: MoneyInput
+}
+
+input MethodExternalTaxRateDraft{
+    shippingMethodKey: String
+    taxRate: ExternalTaxRateDraft
+}
+
+input ItemShippingTargetInput{
+    addressKey: String!
+    quantity: Int!
+    shippingMethodKey: String
+}
+
+input ItemShippingDetailsDraft{
+    targets: [ItemShippingTargetInput!]!
+}
+
+input CustomFieldsDraft{
+    type: ResourceIdentifierInput!
+    fields: [CustomFieldInput!]
+}
+
+input LineItemDraft{
+    key: String
+    productId: String
+    variantId: Int
+    sku: String
+    quantity: Int
+    addedAt: DateTime
+    distributionChannel: ResourceIdentifierInput
+    supplyChannel: ResourceIdentifierInput
+    externalPrice: MoneyInput
+    externalTotalPrice: ExternalLineItemTotalPrice
+    externalTaxRate: ExternalTaxRateDraft
+    perMethodExternalTaxRate: [MethodExternalTaxRateDraft]
+    inventoryMode: InventoryMode
+    shippingDetails: ItemShippingDetailsDraft
+    custom: CustomFieldsDraft
+}
+
+input CustomLineItemDraft{
+    key: String
+    name: String!
+    quantity: Int
+    money: MoneyInput!
+    slug: String!
+    taxCategory: ResourceIdentifierInput
+    externalTaxRate: ExternalTaxRateDraft
+    shippingDetails: ItemShippingDetailsDraft
+    priceMode: CustomLineItemPriceMode
+    custom: CustomFieldsDraft
+}
+
+input CartDraft{
+    key: String
+    currency: Currency!
+    customerId: String
+    customerEmail: String
+    customerGroup: CustomerGroupReferenceInput
+    anonymousId: String
+    businessUnit: ResourceIdentifierInput
+    store: ResourceIdentifierInput
+    lineItems: [LineItemDraft!]
+    customLineItems: [CustomLineItemDraft!]
+    taxMode: TaxMode
+    externalTaxRateForShippingMethod: ExternalTaxRateDraft
+    taxRoundingMode: RoundingMode
+    taxCalculationMode: TaxCalculationMode
+    inventoryMode: InventoryMode
+    billingAddress: AddressDraft
+    shippingAddress: AddressDraft
+    shippingMethod: ResourceIdentifierInput
+    shippingRateInput: ShippingRateInputDraft
+    shippingMode: ShippingMode
+    customShipping: [CustomShippingDraft!]
+    shipping: [ShippingDraft!]
+    itemShippingAddresses: [AddressDraft!]
+    discountCodes: [String!]
+    country: Country
+    locale: Locale
+    origin: CartOrigin
+    deleteDaysAfterLastModification: Int
+    custom: CustomFieldsDraft
 }
 
 `;

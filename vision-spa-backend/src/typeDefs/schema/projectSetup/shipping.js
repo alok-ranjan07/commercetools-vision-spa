@@ -110,6 +110,92 @@ type TrackingData{
     isReturn: Boolean!
 }
 
+input PriceFunction{
+    currencyCode: Currency
+    function: String
+}
+
+input ShippingRatePriceTierInput{
+    type: String
+    value: String
+    price: MoneyInput
+    minimumCentAmount: Int
+    isMatching: Boolean
+    score: Int
+    priceFunction: PriceFunction
+}
+
+input ShippingRateDraft{
+    price: MoneyInput!
+    freeAbove: MoneyInput
+    tiers: [ShippingRatePriceTierInput]
+}
+
+
+input ShippingRateInputDraft{
+    type: String
+    key: String
+    score: Int
+}
+
+input DeliveryItemInput{
+    id: String!
+    quantity: Int
+}
+
+input ParcelMeasurementsInput{
+    heightInMillimeter: Int
+    lengthInMillimeter: Int
+    widthInMillimeter: Int
+    weightInGram: Int
+}
+
+input TrackingDataInput{
+    trackingId: String
+    carrier: String
+    provider: String
+    providerTransaction: String
+    isReturn: Boolean
+}
+
+input ParcelDraft{
+    key: String
+    measurements: ParcelMeasurementsInput
+    trackingData: TrackingDataInput
+    items: [DeliveryItemInput]
+    custom: CustomFieldsDraft
+}
+
+input DeliveryDraft{
+    key: String
+    items: [DeliveryItemInput]
+    parcels: [ParcelDraft]
+    address: AddressDraft
+    custom: CustomFieldsDraft
+}
+
+input CustomShippingDraft{
+    key: String!
+    shippingMethodName: String!
+    shippingAddress: AddressDraft
+    shippingRate: ShippingRateDraft
+    shippingRateInput: ShippingRateInputDraft
+    taxCategory: ResourceIdentifierInput
+    externalTaxRate: ExternalTaxRateDraft
+    deliveries: [DeliveryDraft]
+    custom: CustomFieldsDraft
+}
+
+input ShippingDraft{
+    key: String!
+    shippingMethod: ResourceIdentifierInput
+    shippingAddress: AddressDraft
+    shippingRateInput: ShippingRateInputDraft
+    externalTaxRate: ExternalTaxRateDraft
+    deliveries: [DeliveryDraft]
+    custom: CustomFieldsDraft
+}
+
 
 `;
 

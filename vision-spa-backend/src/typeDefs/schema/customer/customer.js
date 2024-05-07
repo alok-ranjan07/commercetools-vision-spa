@@ -35,7 +35,41 @@ type CustomerGroupAssignment{
 type CustomerGroupReference{
     id: String!
     typeId: String!
-    obj: CustomerGroup
+}
+
+input CustomerGroupReferenceInput{
+    id: String
+    key: String
+    typeId: String
+}
+
+input CustomerDraft{
+    key: String
+    customerNumber: String
+    externalId: String
+    email: String!
+    password: String
+    firstName: String 
+    lastName: String 
+    middleName: String 
+    title: String
+    anonymousCart: ResourceIdentifierInput
+    anonymousId: String
+    dateOfBirth: Date
+    companyName: String
+    vatId: String 
+    addresses: [AddressDraft!]
+    defaultShippingAddress: Int
+    shippingAddresses: [Int!]
+    defaultBillingAddress: Int
+    billingAddresses: [Int!]
+    isEmailVerified: Boolean
+    customerGroup: CustomerGroupReferenceInput
+    locale: Locale
+    salutation: String
+    stores: [ResourceIdentifierInput]
+    authenticationMode: AuthenticationMode
+    custom: CustomFieldsDraft
 }
 
 "A customer is a person purchasing products. Carts, Orders and Reviews can be associated to a customer."

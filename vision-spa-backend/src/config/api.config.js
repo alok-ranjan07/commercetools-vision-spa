@@ -22,5 +22,7 @@ export default {
   serviceURLs: {
     login: process.env.Login,
     store: process.env.Store,
+    customer: process.env.Customer,
+    cart: process.env.Cart,
   },
 };
