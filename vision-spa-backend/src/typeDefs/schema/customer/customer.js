@@ -1,5 +1,13 @@
 const customer = `
 
+type CustomerQueryResult{
+    limit: Int!
+    offset: Int!
+    count: Int!
+    total: Int
+    results: [Customer!]!
+}
+
 type CustomerSignInResult{
     customer: Customer!
     cart: Cart

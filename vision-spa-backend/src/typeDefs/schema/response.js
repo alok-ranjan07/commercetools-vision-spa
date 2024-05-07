@@ -20,6 +20,12 @@ type CreateCartResponse{
     results: Cart
 }
 
+type CustomerQueryResponse{
+    accessToken: String
+    error: String
+    results: CustomerQueryResult
+}
+
 `;
 
 export default response;

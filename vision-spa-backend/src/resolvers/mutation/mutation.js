@@ -1,16 +1,10 @@
-import { createCart } from "./cart.js";
-import { customerSignIn, customerSignUp } from "./customer.js";
+import { createCart } from "../helper/cart.js";
+import { customerSignIn, customerSignUp } from "../helper/customer.js";
 
 const mutation = {
-  customerSignIn: (_, args, context) => {
-    return customerSignIn(_, args, context);
-  },
-  customerSignUp: (_, args, context) => {
-    return customerSignUp(_, args, context);
-  },
-  createCart: (_, args, context) => {
-    return createCart(_, args, context);
-  },
+  customerSignIn: customerSignIn,
+  customerSignUp: customerSignUp,
+  createCart: createCart,
 };
 
 export default mutation;

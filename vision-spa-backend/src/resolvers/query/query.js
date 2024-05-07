@@ -1,7 +1,7 @@
+import { queryCustomers } from "../helper/customer.js";
+
 const query = {
-  query: (_, args, context) => {
-    return 5;
-  },
+  customers: queryCustomers,
 };
 
 export default query;
