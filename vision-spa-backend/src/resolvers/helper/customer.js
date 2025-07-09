@@ -37,7 +37,6 @@ const ifChecker = (props) => {
 
 export const queryCustomers = async (_, args, context) => {
   const { storeKey, ...rest } = args;
-  const accessToken = context.token;
 
   const queryParams = ifChecker(rest);
   const queryString = new URLSearchParams(queryParams).toString();
@@ -50,9 +49,9 @@ export const queryCustomers = async (_, args, context) => {
 
   if (storeKey) {
     url = `${au.apiUrl}/${au.projectKey}/${au.storeUrl}/key=${storeKey}/${au.customerUrl}?${queryString}`;
-    response = await fetchWithToken(url, options, accessToken);
+    response = await anonymousFetch(url, options);
   } else {
-    response = await fetchWithToken(url, options, accessToken);
+    response = await anonymousFetch(url, options);
   }
 
   if (response.body.statusCode == 400) {
