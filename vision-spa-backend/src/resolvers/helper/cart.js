@@ -13,6 +13,7 @@ const au = {
 export const createCart = async (_, args, context) => {
   const { draft, storeKey } = args;
   const accessToken = context.token;
+  let response = { body: null, token: null };
   let url = `${au.apiUrl}/${au.projectKey}/${au.cartUrl}`;
   const options = {
     method: "POST",
@@ -21,18 +22,10 @@ export const createCart = async (_, args, context) => {
 
   if (storeKey) {
     url = `${au.apiUrl}/${au.projectKey}/${au.storeUrl}/key=${storeKey}/${au.cartUrl}`;
-    const response = await fetchWithToken(url, options, accessToken);
-
-    if (response.body.statusCode == 400) {
-      return { error: response.body.message };
-    }
-    return {
-      results: response.body,
-      accessToken: response.token,
-    };
+    response = await fetchWithToken(url, options, accessToken);
+  } else {
+    response = await fetchWithToken(url, options, accessToken);
   }
-
-  const response = await fetchWithToken(url, options, accessToken);
 
   if (response.body.statusCode == 400) {
     return { error: response.body.message };

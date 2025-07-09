@@ -4,8 +4,8 @@
 
 ```
 # Port and Host address
-PORT=
-HOSTNAME=
+PORT=8080
+HOSTNAME=127.0.0.1
 
 # Api Credentials(create SPA api client)
 CTP_PROJECT_KEY=
@@ -21,7 +21,10 @@ CTP_GUEST_CLIENT_ID=
 CTP_GUEST_SCOPES=
 
 # Service URLs
-LoginService=
+Login=login
+Store=in-store
+Customer=customers
+Cart=carts
 ```
 
 4. create commercetool client from merchant center

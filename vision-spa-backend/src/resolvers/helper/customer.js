@@ -36,12 +36,13 @@ const ifChecker = (props) => {
 };
 
 export const queryCustomers = async (_, args, context) => {
-  const { storeKey, ...props } = args;
+  const { storeKey, ...rest } = args;
   const accessToken = context.token;
 
-  const queryParams = ifChecker(props);
+  const queryParams = ifChecker(rest);
   const queryString = new URLSearchParams(queryParams).toString();
 
+  let response = { body: null, token: null };
   let url = `${au.apiUrl}/${au.projectKey}/${au.customerUrl}?${queryString}`;
   const options = {
     method: "GET",
@@ -49,18 +50,11 @@ export const queryCustomers = async (_, args, context) => {
 
   if (storeKey) {
     url = `${au.apiUrl}/${au.projectKey}/${au.storeUrl}/key=${storeKey}/${au.customerUrl}?${queryString}`;
-    const response = await fetchWithToken(url, options, accessToken);
-
-    if (response.body.statusCode == 400) {
-      return { error: response.body.message };
-    }
-    return {
-      results: response.body,
-      accessToken: response.token,
-    };
+    response = await fetchWithToken(url, options, accessToken);
+  } else {
+    response = await fetchWithToken(url, options, accessToken);
   }
 
-  const response = await fetchWithToken(url, options, accessToken);
   if (response.body.statusCode == 400) {
     return { error: response.body.message };
   }
@@ -73,6 +67,7 @@ export const queryCustomers = async (_, args, context) => {
 export const customerSignIn = async (_, args, context) => {
   const { draft, storeKey } = args;
   const { email, password } = draft;
+  let response = { body: null, token: null, id: null };
   let url = `${au.apiUrl}/${au.projectKey}/${au.loginUrl}`;
   const options = {
     method: "POST",
@@ -81,25 +76,16 @@ export const customerSignIn = async (_, args, context) => {
 
   if (storeKey) {
     url = `${au.apiUrl}/${au.projectKey}/${au.storeUrl}/key=${storeKey}/${au.loginUrl}`;
-    const response = await fetchWithPasswordInStore(
+    response = await fetchWithPasswordInStore(
       url,
       options,
       email,
       password,
       storeKey
     );
-
-    if (response.body.statusCode == 400) {
-      return { error: response.body.message };
-    }
-    return {
-      results: response.body,
-      accessToken: response.token,
-      id: { id: response.id[1], type: response.id[0] },
-    };
+  } else {
+    response = await fetchWithPassword(url, options, email, password);
   }
-
-  const response = await fetchWithPassword(url, options, email, password);
 
   if (response.body.statusCode == 400) {
     return { error: response.body.message };
@@ -113,6 +99,7 @@ export const customerSignIn = async (_, args, context) => {
 
 export const customerSignUp = async (_, args, context) => {
   const { draft, storeKey } = args;
+  let response = { body: null, token: null, id: null };
   let url = `${au.apiUrl}/${au.projectKey}/${au.customerUrl}`;
   const options = {
     method: "POST",
@@ -121,19 +108,10 @@ export const customerSignUp = async (_, args, context) => {
 
   if (storeKey) {
     url = `${au.apiUrl}/${au.projectKey}/${au.storeUrl}/key=${storeKey}/${au.customerUrl}`;
-    const response = await anonymousFetch(url, options);
-
-    if (response.body.statusCode == 400) {
-      return { error: response.body.message };
-    }
-    return {
-      results: response.body,
-      accessToken: response.token,
-      id: { id: response.id[1], type: response.id[0] },
-    };
+    response = await anonymousFetch(url, options);
+  } else {
+    response = await anonymousFetch(url, options);
   }
-
-  const response = await anonymousFetch(url, options);
 
   if (response.body.statusCode == 400) {
     return { error: response.body.message };
