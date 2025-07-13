@@ -32,7 +32,10 @@ app.use(
   cors(),
   express.json(),
   expressMiddleware(server, {
-    context: async ({ req }) => ({ token: req.headers.bearertoken }),
+    context: async ({ req }) => ({
+      token: req.headers.bearertoken,
+      containerName: hostname,
+    }),
   })
 );
 

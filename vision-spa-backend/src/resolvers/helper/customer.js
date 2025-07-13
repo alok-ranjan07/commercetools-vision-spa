@@ -37,6 +37,7 @@ const ifChecker = (props) => {
 
 export const queryCustomers = async (_, args, context) => {
   const { storeKey, ...rest } = args;
+  const containerName = context.containerName;
 
   const queryParams = ifChecker(rest);
   const queryString = new URLSearchParams(queryParams).toString();
@@ -60,11 +61,14 @@ export const queryCustomers = async (_, args, context) => {
   return {
     results: response.body,
     accessToken: response.token,
+    containerName: containerName,
   };
 };
 
 export const customerSignIn = async (_, args, context) => {
   const { draft, storeKey } = args;
+  const containerName = context.containerName;
+
   const { email, password } = draft;
   let response = { body: null, token: null, id: null };
   let url = `${au.apiUrl}/${au.projectKey}/${au.loginUrl}`;
@@ -93,11 +97,14 @@ export const customerSignIn = async (_, args, context) => {
     results: response.body,
     accessToken: response.token,
     id: { id: response.id[1], type: response.id[0] },
+    containerName: containerName,
   };
 };
 
 export const customerSignUp = async (_, args, context) => {
   const { draft, storeKey } = args;
+  const containerName = context.containerName;
+
   let response = { body: null, token: null, id: null };
   let url = `${au.apiUrl}/${au.projectKey}/${au.customerUrl}`;
   const options = {
@@ -119,5 +126,6 @@ export const customerSignUp = async (_, args, context) => {
     results: response.body,
     accessToken: response.token,
     id: { id: response.id[1], type: response.id[0] },
+    containerName: containerName,
   };
 };
