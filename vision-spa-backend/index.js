@@ -5,6 +5,7 @@ import express from "express";
 import http from "http";
 import cors from "cors";
 import "dotenv/config";
+import os from "os";
 
 // import { gql } from "apollo-server";
 // import fs from "fs";
@@ -34,7 +35,7 @@ app.use(
   expressMiddleware(server, {
     context: async ({ req }) => ({
       token: req.headers.bearertoken,
-      containerName: hostname,
+      containerName: `${os.hostname()}`,
     }),
   })
 );
