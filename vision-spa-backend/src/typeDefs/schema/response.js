@@ -1,6 +1,7 @@
 const response = `
 
 type CustomerSignInResponse{
+    containerName: String
     id: ResponseTypeId
     accessToken: String
     error: String
@@ -8,6 +9,7 @@ type CustomerSignInResponse{
 }
 
 type CustomerSignUpResponse{
+    containerName: String
     id: ResponseTypeId
     accessToken: String
     error: String
@@ -15,12 +17,14 @@ type CustomerSignUpResponse{
 }
 
 type CreateCartResponse{
+    containerName: String
     accessToken: String
     error: String
     results: Cart
 }
 
 type CustomerQueryResponse{
+    containerName: String
     accessToken: String
     error: String
     results: CustomerQueryResult

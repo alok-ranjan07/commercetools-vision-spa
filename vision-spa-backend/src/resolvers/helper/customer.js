@@ -56,7 +56,7 @@ export const queryCustomers = async (_, args, context) => {
   }
 
   if (response.body.statusCode == 400) {
-    return { error: response.body.message };
+    return { error: response.body.message, containerName: containerName };
   }
   return {
     results: response.body,
@@ -91,7 +91,7 @@ export const customerSignIn = async (_, args, context) => {
   }
 
   if (response.body.statusCode == 400) {
-    return { error: response.body.message };
+    return { error: response.body.message, containerName: containerName };
   }
   return {
     results: response.body,
@@ -120,7 +120,7 @@ export const customerSignUp = async (_, args, context) => {
   }
 
   if (response.body.statusCode == 400) {
-    return { error: response.body.message };
+    return { error: response.body.message, containerName: containerName };
   }
   return {
     results: response.body,

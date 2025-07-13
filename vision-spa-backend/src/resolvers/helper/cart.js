@@ -12,6 +12,7 @@ const au = {
 
 export const createCart = async (_, args, context) => {
   const { draft, storeKey } = args;
+  const containerName = context.containerName;
   const accessToken = context.token;
   let response = { body: null, token: null };
   let url = `${au.apiUrl}/${au.projectKey}/${au.cartUrl}`;
@@ -28,10 +29,11 @@ export const createCart = async (_, args, context) => {
   }
 
   if (response.body.statusCode == 400) {
-    return { error: response.body.message };
+    return { error: response.body.message, containerName: containerName };
   }
   return {
     results: response.body,
     accessToken: response.token,
+    containerName: containerName,
   };
 };
